@@ -11,6 +11,6 @@
  *
  * @author BUIMOV ANDREY
  */
-class AbstractController {
+abstract class AbstractController {
     //put your code here
 }
