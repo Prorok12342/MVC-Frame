@@ -23,6 +23,7 @@ class NewsController {
         $view = new View();
         $view->id = $id;
         $view->item = $item;
+        
         $view->display('news/one.php');        
     }
     

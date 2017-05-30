@@ -11,24 +11,27 @@
  *
  * @author BUIMOV ANDREY
  */
-abstract class AbstractModel {
+abstract class AbstractModel implements IModel {
     
     protected static $table;
     protected static $class;
 
     public static function getAll(){
         $db = new DB;
-        $sql = 'SELECT * FROM `' . static::$table . '`';
         
-        return $db->queryAll($sql, static::$class);
+        $sql = 'SELECT * FROM `' . static::$table . '`';
+        $res = $db->query($sql);
+        
+        return $res;
     }
     
     public static function getOne($id){
         $id = intval($id);
         
         $db = new DB();        
-        $sql = 'SELECT * FROM `' . static::$table . '` WHERE `id`=' . $id;
+        $sql = 'SELECT * FROM `' . static::$table . '` WHERE id=:id';
+        $res = $db->query($sql, [':id' => $id]);
         
-        return $db->queryOne($sql, static::$class);
+        return $res;
     }
 }
