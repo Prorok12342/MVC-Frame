@@ -22,7 +22,7 @@ class NewsController {
         
         $view = new View();
         $view->id = $id;
-        $view->item = $item;
+        $view->item = $item[0];
         
         $view->display('news/one.php');        
     }
