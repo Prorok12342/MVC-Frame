@@ -9,12 +9,24 @@
 require_once __DIR__ . '/autoload.php';
 
 // -----------------------------------------------------------------------------
-$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
-$act = isset($_GET['act']) ? $_GET['act'] : 'All';
+//> Преобразование адресов
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$pathParts = explode('/', $path);
+//<
 
-$controllerClassName = $ctrl . 'Controller';
+$ctrl = !empty($pathParts[1]) ? ucfirst($pathParts[1]) : 'News';
+$act = !empty($pathParts[2]) ? ucfirst($pathParts[2]) : 'All';
+$idArt = !empty($pathParts[3]) ? $pathParts[3] : $_GET['id'];
 
-$controller = new $controllerClassName;
-$method = 'action' . $act;
+$_GET['id'] = $idArt;
 
-$controller->$method();
+try{
+    $controllerClassName = $ctrl . 'Controller';
+
+    $controller = new $controllerClassName;
+    $method = 'action' . $act;
+
+    $controller->$method();
+} catch (ModelException $err){
+    die('Чё-то не вышло...' . $err->getMessage());
+}

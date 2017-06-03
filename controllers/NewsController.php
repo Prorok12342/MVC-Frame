@@ -8,12 +8,12 @@
 //------------------------------------------------------------------------------
 
 class NewsController {
-    public function actionAll(){      
+    public function actionAll(){
         $items = News::getAll();
         
         $view = new View();
         $view->items = $items;
-        $view->display('news/all.php');        
+        $view->display('news/all.php');
     }
     
     public function actionOne(){
@@ -22,9 +22,9 @@ class NewsController {
         
         $view = new View();
         $view->id = $id;
-        $view->item = $item[0];
+        $view->item = $item;
         
-        $view->display('news/one.php');        
+        $view->display('news/one.php');
     }
     
     
